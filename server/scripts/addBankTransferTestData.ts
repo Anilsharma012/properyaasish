@@ -1,4 +1,4 @@
-import { getDatabase } from "../db/mongodb";
+import { getDatabase, connectToDatabase } from "../db/mongodb";
 import { ObjectId } from "mongodb";
 
 export const addBankTransferTestData = async () => {
@@ -130,9 +130,13 @@ export const addBankTransferTestData = async () => {
   }
 };
 
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  addBankTransferTestData()
+// Run directly if this file is executed
+if (
+  import.meta.url === `file://${process.argv[1]}` &&
+  process.env.NODE_ENV !== "production"
+) {
+  connectToDatabase()
+    .then(() => addBankTransferTestData())
     .then(() => {
       console.log("✅ Bank transfer test data script completed");
       process.exit(0);
