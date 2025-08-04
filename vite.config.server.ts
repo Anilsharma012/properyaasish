@@ -5,7 +5,9 @@ import path from "path";
 export default defineConfig({
   build: {
     lib: {
-       entry: path.resolve(__dirname, "index.ts"),
+       // ✅ Sahi
+entry: path.resolve(__dirname, "server/index.ts"),
+
       name: "server",
       fileName: "production",
       formats: ["es"],
